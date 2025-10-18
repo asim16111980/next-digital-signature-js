@@ -13,17 +13,17 @@ export default function Home() {
   const [senderData, setSenderData] = useState("");
   const [receiverData, setReceiverData] = useState("");
 
- async function genKeys() {
-  const r = await fetch("/api/genkeys");
-  const j = await r.json();
-  if (j.privateKey && j.publicKey) {
-    setPrivateKey(j.privateKey);
-    setPublicKey(j.publicKey);
-    setLog("Keys generated");
-  } else {
-    setLog(JSON.stringify(j));
+  async function genKeys() {
+    const r = await fetch("/api/genkeys");
+    const j = await r.json();
+    if (j.privateKey && j.publicKey) {
+      setPrivateKey(j.privateKey);
+      setPublicKey(j.publicKey);
+      setLog("Keys generated");
+    } else {
+      setLog(JSON.stringify(j));
+    }
   }
-}
 
   async function sign(e: FormEvent) {
     e.preventDefault();
@@ -50,40 +50,38 @@ export default function Home() {
   }
 
   return (
-    <main className="max-w-[900px] py-10 mx-auto font-sans bg-blue-50 px-4">
-      <h1 className="text-5xl font-bold text-center mb-8 bg-gradient-to-r from-blue-500 via-green-400 to-purple-500 bg-clip-text text-transparent animate-gradient">
-        Digital Signature Demo
+    <main className="w-full py-8 mx-auto font-sans bg-blue-50 px-4">
+      <h1 className="text-5xl font-bold text-center mb-8 bg-gradient-to-r from-blue-500 via-green-400 to-purple-500 bg-clip-text text-transparent animate-gradient leading-normal">
+        Digital Signature
       </h1>
 
       {/* المفاتيح */}
       <section className="bg-white p-6 rounded-lg shadow-md mb-6">
-        <h2 className="text-2xl font-semibold mb-4">Keys</h2>
-        <div className="grid gap-4">
-          <div>
+        <h2 className="text-3xl font-semibold mb-4 text-blue-800">Keys</h2>
+        <div className="flex gap-4">
+          <div className="flex-1">
             <h3 className="font-medium">Private Key</h3>
             <textarea
-              className="w-full p-2 border rounded text-xs font-mono"
-              rows={6}
+              className="w-full min-h-40 p-2 border rounded text-xs font-mono"
               readOnly
               value={privateKey}
             />
           </div>
-          <div>
+          <div className="flex-1">
             <h3 className="font-medium">Public Key</h3>
             <textarea
-              className="w-full p-2 border rounded text-xs font-mono"
-              rows={6}
+              className="w-full min-h-40 p-2 border rounded text-xs font-mono"
               readOnly
               value={publicKey}
             />
           </div>
+        </div>
           <button
             onClick={genKeys}
             className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
           >
             Generate Keys
           </button>
-        </div>
       </section>
 
       {/* التوقيع */}
